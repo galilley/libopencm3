@@ -34,14 +34,24 @@
 #ifndef LIBOPENCM3_ADC_H
 #define LIBOPENCM3_ADC_H
 
+#define LIBOPENCM3_F37x_ADC
+
+#ifdef LIBOPENCM3_F37x_ADC
+#include <libopencm3/stm32/common/adc_common_f13.h>
+#else
 #include <libopencm3/stm32/common/adc_common_v2.h>
 #include <libopencm3/stm32/common/adc_common_v2_multi.h>
+#endif
 
 /**@{*/
 
 /** @defgroup adc_reg_base ADC register base addresses
 @ingroup STM32xx_adc_defines
 @{*/
+
+#ifdef LIBOPENCM3_F37x_ADC
+#define ADC	    	ADC_BASE
+#else
 #define ADC1		ADC1_BASE
 #define ADC2		ADC2_BASE
 #define ADC3		ADC3_BASE
@@ -597,6 +607,8 @@ void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger,
 bool adc_awd(uint32_t adc);
 /*void adc_set_dma_continue(uint32_t adc);*/
 /*void adc_set_dma_terminate(uint32_t adc);*/
+
+#endif //LIBOPENCM3_F37x_ADC
 
 END_DECLS
 
