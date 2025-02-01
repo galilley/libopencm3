@@ -30,7 +30,11 @@
 static usbd_device *st_usbfs_v2_usbd_init(void)
 {
 	rcc_periph_clock_enable(RCC_USB);
-	SET_REG(USB_CNTR_REG, 0);
+	SET_REG(USB_CNTR_REG, USB_CNTR_FRES); // clear Power down bit
+	for (int i = 0; i < 1000; i++) { // wait a time to avoid non defined behavior
+		__asm__("nop");
+	}
+	SET_REG(USB_CNTR_REG, 0); // clear Force reset bit
 	SET_REG(USB_BTABLE_REG, 0);
 	SET_REG(USB_ISTR_REG, 0);
 
