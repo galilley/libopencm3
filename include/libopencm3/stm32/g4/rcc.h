@@ -1043,6 +1043,10 @@ void rcc_set_i2c_clock_sysclk(uint32_t i2c);
 void rcc_set_i2c_clock_pclk(uint32_t i2c);
 uint32_t rcc_get_i2c_clocks(void);
 
+void rcc_set_adc_clock_sysclk(uint32_t adc);
+void rcc_set_adc_clock_pllp(uint32_t adc);
+uint32_t rcc_get_adc_clocks(void);
+
 END_DECLS
 
 /**@}*/

@@ -49,6 +49,7 @@
 #include <libopencm3/stm32/pwr.h>
 #include <libopencm3/stm32/flash.h>
 #include <libopencm3/stm32/i2c.h>
+#include <libopencm3/stm32/adc.h>
 
 /**@{*/
 
@@ -854,6 +855,38 @@ uint32_t rcc_get_i2c_clocks(void)
             (RCC_CCIPR_SEL_MASK << RCC_CCIPR_I2C1SEL_SHIFT) | 
             (RCC_CCIPR_SEL_MASK << RCC_CCIPR_I2C2SEL_SHIFT) | 
             (RCC_CCIPR_SEL_MASK << RCC_CCIPR_I2C3SEL_SHIFT)
+        );
+}
+
+void rcc_set_adc_clock_sysclk(uint32_t adc)
+{
+	if (adc == ADC12) {
+		RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_ADC12SEL_SHIFT);
+		RCC_CCIPR |=  (RCC_CCIPR_ADC12SEL_SYSCLK << RCC_CCIPR_ADC12SEL_SHIFT);
+	}
+	if (adc == ADC345) {
+		RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_ADC345SEL_SHIFT);
+		RCC_CCIPR |=  (RCC_CCIPR_ADC345SEL_SYSCLK << RCC_CCIPR_ADC345SEL_SHIFT);
+	}
+}
+
+void rcc_set_adc_clock_pllp(uint32_t adc)
+{
+	if (adc == ADC12) {
+		RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_ADC12SEL_SHIFT);
+		RCC_CCIPR |=  (RCC_CCIPR_ADC12SEL_PLLP << RCC_CCIPR_ADC12SEL_SHIFT);
+	}
+	if (adc == ADC345) {
+		RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_ADC345SEL_SHIFT);
+		RCC_CCIPR |=  (RCC_CCIPR_ADC345SEL_PLLP << RCC_CCIPR_ADC345SEL_SHIFT);
+	}
+}
+
+uint32_t rcc_get_adc_clocks(void)
+{
+	return RCC_CCIPR & (
+            (RCC_CCIPR_SEL_MASK << RCC_CCIPR_ADC12SEL_SHIFT) | 
+            (RCC_CCIPR_SEL_MASK << RCC_CCIPR_ADC345SEL_SHIFT)
         );
 }
 
