@@ -44,6 +44,12 @@
  * @{
  */
 
+/** ICTR: Interrupt Controller Type Register
+ * Note: 1 4bit Register
+ * Note: Shows the number of interrupt lines that the NVIC supports
+ */
+#define NVIC_ICTR		MMIO32(SCS_BASE + 0x04)
+
 /** ISER: Interrupt Set Enable Registers
  * @note 8 32bit Registers
  * @note Single register on CM0

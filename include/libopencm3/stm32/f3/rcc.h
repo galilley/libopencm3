@@ -615,6 +615,7 @@ enum rcc_periph_rst {
 #undef _REG_BIT
 
 #include <libopencm3/stm32/common/rcc_common_all.h>
+#include <libopencm3/stm32/common/rcc_common_f13.h>
 
 BEGIN_DECLS
 

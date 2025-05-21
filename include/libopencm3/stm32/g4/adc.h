@@ -46,6 +46,12 @@
 #define ADC5		ADC5_BASE
 /**@}*/
 
+/** @defgroup adc_common_reg_base ADC common register base addresses
+@ingroup STM32xx_adc_defines
+@{*/
+#define ADC12		ADC1_BASE
+#define ADC345		ADC3_BASE
+/**@}*/
 
 /*----------- ADC registers -------------------------------------- */
 /** ADC_GCOMP Gain compensation Register */

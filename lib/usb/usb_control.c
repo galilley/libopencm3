@@ -176,6 +176,13 @@ static void usb_control_setup_read(usbd_device *usbd_dev,
 	usbd_dev->control_state.ctrl_buf = usbd_dev->ctrl_buf;
 	usbd_dev->control_state.ctrl_len = req->wLength;
 
+	if (usbd_dev->control_state.ctrl_len > usbd_dev->ctrl_buf_len) {
+		// Hack to prevent the buffer overflow. 
+        // The host will report about error during receive a control message.
+        // Control buffer size should be increased to avoid that.
+		usbd_dev->control_state.ctrl_len = usbd_dev->ctrl_buf_len;
+	}
+
 	if (usb_control_request_dispatch(usbd_dev, req)) {
 		if (req->wLength) {
 			usbd_dev->control_state.needs_zlp =
